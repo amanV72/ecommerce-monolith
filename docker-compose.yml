@@ -1,39 +1,35 @@
 services:
-  postgres:
-    container_name: postgres_container
-    image: postgres:14
+  mysql:
+    container_name: mysql_container
+    image: mysql:8.4
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: password
-      PGDATA: /data/postgres
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: ecomdb
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
     volumes:
-      - postgres:/data/postgres
+      - mysql:/var/lib/mysql
     ports:
-      - "5432:5432"
+      - "3306:3306"
     networks:
-      - postgres
+      - mysql
     restart: unless-stopped
 
-
-  pgadmin:
-    container_name: pgadmin_container
-    image: dpage/pgadmin4
+  phpmyadmin:
+    container_name: phpmyadmin_container
+    image: phpmyadmin/phpmyadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    volumes:
-      - pgadmin:/var/lib/pgadmin
+      PMA_HOST: mysql
+      PMA_PORT: 3306
     ports:
-      - "5050:80"
+      - "8081:80"
     networks:
-      - postgres
+      - mysql
     restart: unless-stopped
 
 networks:
-  postgres:
+  mysql:
     driver: bridge
 
 volumes:
-  postgres:
-  pgadmin:
+  mysql:
