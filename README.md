@@ -51,24 +51,28 @@ Use Flyway or Liquibase in production.
 ## ⚙️ Setup & Run
 
 ### 1️.Clone the Repository (SSH)
-
 ```bash
 git clone git@github.com:<your-username>/ecommerce-monolith.git
 cd ecommerce-monolith
 ```
 ### 2.Create a .env file in the project root:
-
 DB_URL=jdbc:mysql://localhost:3306/ecomdb
-DB_USERNAME=your_username
-DB_PASS=your_password
+DB_USERNAME=root
+DB_PASS=password
 
 ### 3.Start MySQL (Docker)
 ```bash
 docker-compose up -d
 ```
-Ensure:
-MySQL runs on port 3306
-Database ecomdb exists
+### 4.Access phpMyAdmin UI for MySQL:
+Open your browser and go to:
+http://localhost:8081
+
+🔑 Login Details
+Use these credentials (from your docker-compose.yml):
+Server: mysql
+Username: root
+Password: password
 
 ### 4.Run the Application
 ```BASH
